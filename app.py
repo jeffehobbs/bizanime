@@ -64,7 +64,6 @@ def generate_sentence():
 
 # find a random GIF via GIPHY API
 def find_GIF(query):
-	# EXAMPLE: https://api.giphy.com/v1/gifs/search?api_key=bLFbgaPdSjuNv3viqR8SAt0AFibC90xc&q=anime&limit=100&offset=0&rating=R&lang=en
 	endpoint = "https://api.giphy.com/v1/gifs/search"
 	limit = random.randint(1,25)
 	offset = random.randint(0,5000)
