@@ -74,10 +74,9 @@ def find_GIF(query):
 	data = r.json()
 	#print(json.dumps(data, indent=4, sort_keys=True))
 	gif_index = random.randint(1,limit) - 1 
-	size = int(data['data'][gif_index]['images']['original']['size'])
-	if (size > 5000000):
-		find_GIF(GIF_SEARCH_TERM)
-
+	#size = int(data['data'][gif_index]['images']['original']['size'])
+	#if (size > 5000000):
+	#	find_GIF(GIF_SEARCH_TERM)
 	return(data['data'][gif_index]['images']['original']['url'])
 
 
@@ -89,11 +88,16 @@ def download_GIF(url):
 
 
 # tweet the sentence and the GIF out to Twitter
-def tweet_GIF(sentence):
+def tweet_GIF(status):
 	auth = OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
 	auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 	api = API(auth)
-	api.update_with_media('/tmp/' + GIF_SEARCH_TERM + '.gif',status=sentence)
+	filenames = ['/tmp/' + GIF_SEARCH_TERM + '.gif']
+	media_ids = []
+	for filename in filenames:
+		res = api.media_upload(filename)
+		media_ids.append(res.media_id)
+	api.update_status(status=status, media_ids=media_ids)
 	print('...DONE.')
 
 
