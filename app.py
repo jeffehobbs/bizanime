@@ -34,12 +34,13 @@ TWITTER_CONSUMER_SECRET = config.get('twitter', 'consumer_secret')
 TWITTER_ACCESS_TOKEN = config.get('twitter', 'access_token')
 TWITTER_ACCESS_TOKEN_SECRET = config.get('twitter', 'access_token_secret')
 
+GIF_SEARCH_TERM = 'anime'
 
 # main loop for AWS lambda
 def lambda_handler():
 	sentence = generate_sentence()
 	print(sentence)
-	gif_url = find_GIF("anime")
+	gif_url = find_GIF(GIF_SEARCH_TERM)
 	download_GIF(gif_url)
 	tweet_GIF(sentence)
 
@@ -72,14 +73,18 @@ def find_GIF(query):
 	#print(r.url)
 	data = r.json()
 	#print(json.dumps(data, indent=4, sort_keys=True))
-	gif_index = random.randint(1,limit) - 1
+	gif_index = random.randint(1,limit) - 1 
+	size = int(data['data'][gif_index]['images']['original']['size'])
+	if (size > 5000000):
+		find_GIF(GIF_SEARCH_TERM)
+
 	return(data['data'][gif_index]['images']['original']['url'])
 
 
 # download the GIF to /tmp directory
 def download_GIF(url):
 	r = requests.get(url)
-	with open('/tmp/anime.gif', 'wb') as f:
+	with open('/tmp/' + GIF_SEARCH_TERM + '.gif', 'wb') as f:
 		f.write(r.content)
 
 
@@ -88,7 +93,7 @@ def tweet_GIF(sentence):
 	auth = OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
 	auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 	api = API(auth)
-	api.update_with_media('/tmp/anime.gif',status=sentence)
+	api.update_with_media('/tmp/' + GIF_SEARCH_TERM + '.gif',status=sentence)
 	print('...DONE.')
 
 
