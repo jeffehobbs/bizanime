@@ -19,11 +19,13 @@ How to get this working?
 
 5) get Twitter/GIPHY API keys, create an apikeys.txt file in this format:
 
-```[apikeys]
+```
+[apikeys]
 giphy_apikey = THE_GIPHY_API_KEY
 [twitter]
 consumer_key = THE_TWITTER_API_KEY
 consumer_secret = THE_TWITTER_API_KEY
 access_token = THE_TWITTER_API_KEY
-access_token_secret = THE_TWITTER_API_KEY```
+access_token_secret = THE_TWITTER_API_KEY
+```
 
