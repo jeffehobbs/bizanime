@@ -1,0 +1,12 @@
+the client
+HR
+the developer
+the product manager
+the primary stakeholder
+my manager
+the CEO
+the QA dept
+the vendor
+the scrum master
+the VC
+the UX dept

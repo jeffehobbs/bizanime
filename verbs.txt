@@ -1,0 +1,13 @@
+DMs me
+pings me
+mutes me
+favs me
+starts a videocall
+calls my cell
+"at-replies" me
+blocks me
+emails me
+cc's me
+bcc's me
+closes the JIRA
+marks as 'wont fix'
